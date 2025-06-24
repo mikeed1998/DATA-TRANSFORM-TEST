@@ -4,10 +4,9 @@ import { DatabaseService } from '../services/database.service';
 
 export const configureContainer = () => {
   const container = createContainer({
-    injectionMode: 'CLASSIC' // Modo clásico más estable
+    injectionMode: 'CLASSIC'
   });
 
-  // Registro plano sin inyección compleja
   container.register({
     databaseService: asClass(DatabaseService).singleton(),
     dataService: asClass(DataService).singleton()

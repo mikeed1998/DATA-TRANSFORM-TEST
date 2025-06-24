@@ -18,3 +18,32 @@ model Product {
 
   @@map("products")
 }
+
+model SelectedFiles {
+  id              Int      @id @default(autoincrement())
+  name            String
+  size            Int
+  lastModifiedDate DateTime
+  path            String
+  type            String
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt       DateTime? @map("updated_at") @db.Timestamp(6)
+  deletedAt       DateTime? @map("deleted_at") @db.Timestamp(6)
+  
+  logId           Int?     @unique
+  log             Logs?     @relation(fields: [logId], references: [id])
+
+  @@map("selected_files") 
+}
+
+model Logs {
+  id              Int       @id @default(autoincrement())
+  content         String
+  createdAt       DateTime  @default(now()) @map("created_at") @db.Timestamp(6)
+  updatedAt       DateTime? @map("updated_at") @db.Timestamp(6)
+  deletedAt       DateTime? @map("deleted_at") @db.Timestamp(6)
+  
+  selectedFile    SelectedFiles? 
+
+  @@map("logs")
+}
